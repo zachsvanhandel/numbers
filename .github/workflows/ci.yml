@@ -14,6 +14,8 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      - uses: actions/checkout@v4
+
       - uses: ./.github/actions/setup
         with:
           node-version: ${{ matrix.node-version }}
@@ -29,6 +31,8 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      - uses: actions/checkout@v4
+
       - uses: ./.github/actions/setup
         with:
           node-version: ${{ matrix.node-version }}
