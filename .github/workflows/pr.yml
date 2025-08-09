@@ -1,0 +1,33 @@
+name: PR
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, edited]
+
+jobs:
+  validate:
+    name: Validate
+
+    if: event.type == 'opened' || event.changes.title.from
+
+    strategy:
+      matrix:
+        node-version: [22]
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Set up environment
+        uses: ./.github/actions/setup
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Validate PR title
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: npx commitlint <<< $PR_TITLE
