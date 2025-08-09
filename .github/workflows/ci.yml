@@ -1,4 +1,4 @@
-name: CI
+name: ci
 
 on:
   pull_request:
@@ -14,13 +14,16 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout
+        uses: actions/checkout@v4
 
-      - uses: ./.github/actions/setup
+      - name: setup
+        uses: ./.github/actions/setup
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: pnpm build
+      - name: build
+        run: pnpm build
 
   lint:
     strategy:
@@ -31,10 +34,13 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout
+        uses: actions/checkout@v4
 
-      - uses: ./.github/actions/setup
+      - name: setup
+        uses: ./.github/actions/setup
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: pnpm lint
+      - name: lint
+        run: pnpm lint

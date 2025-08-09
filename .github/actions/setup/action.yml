@@ -1,4 +1,4 @@
-name: Setup
+name: setup
 
 inputs:
   node-version:
@@ -7,20 +7,24 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: pnpm/action-setup@v4
+    - name: pnpm
+      uses: pnpm/action-setup@v4
       with:
         version: 10
         run_install: false
 
-    - uses: actions/setup-node@v4
+    - name: node
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'pnpm'
 
-    - uses: actions/cache@v4
+    - name: cache
+      uses: actions/cache@v4
       with:
         path: node_modules
         key: node_modules-${{ inputs.node-version }}-${{ hashFiles('pnpm-lock.yaml') }}
 
-    - run: pnpm install
+    - name: install
+      run: pnpm install
       shell: bash
