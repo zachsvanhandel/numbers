@@ -8,7 +8,7 @@ jobs:
   validate:
     name: Validate
 
-    if: ${{ github.event.type }} == 'opened' || ${{ github.event.changes.title.from }}
+    if: ${{ github.event.action }} == 'opened' || ${{ github.event.changes.title.from }}
 
     strategy:
       matrix:
