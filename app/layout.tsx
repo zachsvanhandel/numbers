@@ -1,6 +1,6 @@
+import "@/app/globals.css";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import type { Metadata } from "next";
-
-import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
@@ -15,8 +15,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
